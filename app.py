@@ -1,11 +1,15 @@
 import streamlit as st
-import pickle
 import pandas as pd
 
-# Load the trained model
-model_path = 'model.pkl'  # Update with the correct path to your model file
-with open(model_path, 'rb') as file:
-    model = pickle.load(file)
+# Placeholder for the model
+# Since the model file is not available, we'll simulate predictions with a dummy function.
+def dummy_predict(data):
+    # Example logic for demonstration
+    base_cost = 1000
+    age_factor = 50 * data['age']
+    bmi_factor = 30 * data['bmi']
+    smoker_factor = 2000 if data['smoker'] == 'yes' else 0
+    return base_cost + age_factor + bmi_factor + smoker_factor
 
 # Streamlit app
 st.title("Medical Insurance Cost Prediction")
@@ -24,17 +28,17 @@ region = st.selectbox("Region", ["northeast", "northwest", "southeast", "southwe
 if st.button("Predict"):
     try:
         # Prepare the input data
-        input_data = pd.DataFrame([{
+        input_data = {
             "age": age,
             "sex": sex,
             "bmi": bmi,
             "children": children,
             "smoker": smoker,
             "region": region
-        }])
+        }
 
-        # Make the prediction
-        prediction = model.predict(input_data)[0]
+        # Simulate the prediction
+        prediction = dummy_predict(input_data)
 
         # Display the result
         st.success(f"Predicted Insurance Cost: ${prediction:.2f}")
